@@ -1,0 +1,77 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 15
+
+char stack[MAX];
+int top=-1;
+
+void push(char s)
+{
+    if(top==MAX-1)
+    {
+        printf("Stack is overlow!");
+    }
+    stack[++top]=s;
+}
+
+int pop()
+{
+    if(top==-1)
+    {
+        printf("Stack is underflow!");
+    }
+    char p = stack[top--];
+    return p;
+}
+
+int match(char open,char close)
+{
+    if(open=='{' && close=='}')
+    {
+        return 1;
+    }
+    if(open=='[' && close==']')
+    {
+        return 1;
+    }
+    if(open=='(' && close==')')
+    {
+        return 1;
+    }
+    return 0;
+}
+int main()
+{
+    char s[20];
+    printf("Enter the characters:");
+    scanf("%s",s);
+    
+    for(int i=0;s[i]!='\0';i++)
+    {
+        if(s[i]=='[' || s[i]=='{' || s[i]=='(')
+        {
+            push(s[i]);
+        }
+        else
+        {
+            char e =pop();
+            
+            if(!match(e,s[i]))
+            {
+                printf("Not valid");
+                return 0;
+            }
+        }
+    }
+    if(top==-1)
+    {
+        printf("Valid");
+    }
+    else
+    {
+        printf("Not valid");
+    }
+	
+	return 0;
+}
