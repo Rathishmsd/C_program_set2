@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+struct Node*head=NULL;
+
+void insert(int value)
+{
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL)
+    {
+        head = newNode;
+        return;
+    }
+
+    struct Node *temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+}
+
+void bubbleSort()
+{
+    int swap;
+    struct Node *ptr1;
+
+    if (head == NULL)
+        return;
+
+    do
+    {
+        swap = 0;
+        ptr1 = head;
+
+        while (ptr1->next != NULL)
+        {
+            if (ptr1->data > ptr1->next->data)
+            {
+                int temp = ptr1->data;
+                ptr1->data = ptr1->next->data;
+                ptr1->next->data = temp;
+
+                swap = 1;
+            }
+            ptr1 = ptr1->next;
+        }
+
+    }
+    while (swap);
+}
+
+void display()
+{
+    struct Node *temp=head;
+    while (temp != NULL)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main()
+{
+
+    insert(64);
+    insert(34);
+    insert(25);
+    insert(12);
+    insert(22);
+    insert(11);
+    insert(90);
+
+    printf("Before Sorting:\n");
+    display();
+
+    bubbleSort();
+
+    printf("After Sorting:\n");
+    display();
+
+    return 0;
+}
